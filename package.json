@@ -1,0 +1,17 @@
+{
+  "name": "js-bs-react",
+  "version": "1.0.0",
+  "description": "js or bs in react",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "bundle": "browserify index.js -t babelify --exclude react/addons --exclude react/lib/ExecutionEnvironment --exclude react/lib/ReactContext -o bundle.js"
+  },
+  "author": "aturkewi",
+  "license": "ISC",
+  "devDependencies": {
+    "babelify": "^7.3.0",
+    "browserify": "^13.1.1",
+    "react": "^15.3.2"
+  }
+}
