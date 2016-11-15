@@ -1,5 +1,6 @@
 const React = require('react');
 const LibraryButton = require('./LibraryButton');
+const Score = require('./Score')
 
 class App extends React.Component {
   constructor(){
@@ -14,7 +15,7 @@ class App extends React.Component {
       realLibraries: [],
       fakeLibraries: [],
       selectedLibraries: [],
-      lastResponse: ''
+      lastResponse: 'Pick which is the real JS library'
     }
   }
   
@@ -64,8 +65,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="app">
-        Current score: {this.state.score}
-        <p>{this.state.lastResponse}</p>
+        <Score score={this.state.score} lastResponse={this.state.lastResponse}/>
         <ul>
           {this.state.selectedLibraries.map((lib, i) => {
             return(
