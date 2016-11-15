@@ -1,4 +1,5 @@
 const React = require('react');
+const LibraryButton = require('./LibraryButton');
 
 class App extends React.Component {
   constructor(){
@@ -6,6 +7,7 @@ class App extends React.Component {
         
     this.selectRandomLibraries = this.selectRandomLibraries.bind(this);
     this.randomFromArray = this.randomFromArray.bind(this);
+    this.handleClick = this.handleClick.bind(this);
     
     this.state = {
       score: 0,
@@ -19,12 +21,16 @@ class App extends React.Component {
     fetch('https://js-or-bs-server.herokuapp.com/fake_libraries')
       .then(res => res.json())
       .then(fake_libs => this.setState(
-        {fakeLibraries: fake_libs.fake_libraries}
+        {fakeLibraries: fake_libs.fake_libraries.map(lib =>{
+          return Object.assign({}, lib, {type: 'fake'})
+        })}
       ));
     fetch('https://js-or-bs-server.herokuapp.com/libraries')
       .then(res => res.json())
       .then(libs => this.setState(
-        {realLibraries: libs.library},
+        {realLibraries: libs.library.map(lib =>{
+          return Object.assign({}, lib, {type: 'real'})
+        })},
         this.selectRandomLibraries
       ));
   }
@@ -40,6 +46,12 @@ class App extends React.Component {
     this.setState({selectedLibraries: shuffledLibraries})
   }
   
+  handleClick(libType){
+    if (libType == 'real'){
+      
+    }
+  }
+  
   render() {
     return (
       <div className="app">
@@ -47,7 +59,10 @@ class App extends React.Component {
         <ul>
           {this.state.selectedLibraries.map(lib => {
             return(
-              <li key={lib.id}>{lib.name}</li>
+              <LibraryButton 
+                name={lib.name} 
+                handleClick={this.handleClick.bind(null, lib.type)}
+              />
             )
           })}
         </ul>
