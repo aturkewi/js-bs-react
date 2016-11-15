@@ -1,6 +1,6 @@
 const React = require('react');
-const LibraryButton = require('./LibraryButton');
-const Score = require('./Score')
+const Score = require('./Score');
+const ButtonsContainer = require('./ButtonsContainer')
 
 class App extends React.Component {
   constructor(){
@@ -66,17 +66,10 @@ class App extends React.Component {
     return (
       <div className="app">
         <Score score={this.state.score} lastResponse={this.state.lastResponse}/>
-        <ul>
-          {this.state.selectedLibraries.map((lib, i) => {
-            return(
-              <LibraryButton 
-                name={lib.name} 
-                handleClick={this.handleClick.bind(null, lib.type)}
-                key={i}
-              />
-            )
-          })}
-        </ul>
+        <ButtonsContainer
+          selectedLibraries={this.state.selectedLibraries}
+          handleClick={this.handleClick}
+        />
       </div>
     );
   }
