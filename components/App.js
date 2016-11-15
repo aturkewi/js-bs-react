@@ -13,7 +13,8 @@ class App extends React.Component {
       score: 0,
       realLibraries: [],
       fakeLibraries: [],
-      selectedLibraries: []
+      selectedLibraries: [],
+      lastResponse: ''
     }
   }
   
@@ -48,20 +49,30 @@ class App extends React.Component {
   
   handleClick(libType){
     if (libType == 'real'){
-      
+      this.setState({
+        score: (this.state.score + 1),
+        lastResponse: 'Correct!'
+      })
+    }else if (libType == 'fake') {
+      this.setState({lastResponse: 'WRONG!'})
+    }else{
+      this.setState({lastResponse: 'neither right, nor wrong?'})
     }
+    this.selectRandomLibraries();
   }
   
   render() {
     return (
       <div className="app">
         Current score: {this.state.score}
+        <p>{this.state.lastResponse}</p>
         <ul>
-          {this.state.selectedLibraries.map(lib => {
+          {this.state.selectedLibraries.map((lib, i) => {
             return(
               <LibraryButton 
                 name={lib.name} 
                 handleClick={this.handleClick.bind(null, lib.type)}
+                key={i}
               />
             )
           })}
